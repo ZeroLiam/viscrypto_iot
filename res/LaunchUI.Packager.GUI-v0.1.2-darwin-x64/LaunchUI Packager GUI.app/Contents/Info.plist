@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>CFBundleName</key>
+    <string>LaunchUI Packager GUI</string>
+    <key>CFBundleExecutable</key>
+    <string>LaunchUI Packager GUI</string>
+    <key>CFBundleIconFile</key>
+    <string>launchui.icns</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleIdentifier</key>
+    <string>org.mimec.launchui-packager-gui</string>
+    <key>CFBundleVersion</key>
+    <string>0.1.2</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.1.2</string>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright (C) 2018 Michał Męciński</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.developer-tools</string>
+  </dict>
+</plist>

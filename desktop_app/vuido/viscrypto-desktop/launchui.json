@@ -1,0 +1,22 @@
+{
+  "name": "viscrypto-desktop",
+  "entry": "dist/main.js",
+  "out": "packages",
+  "pack": "zip",
+  "overwrite": true,
+  "company": "ZeroLiam <liselotr@gmail.com>",
+  "copyright": "",
+  "icon": {
+    "win32": "",
+    "darwin": ""
+  },
+  "license": "",
+  "identifier": "",
+  "category": "",
+  "dir": "",
+  "files": "",
+  "launchui": {
+    "version": "",
+    "cache": ""
+  }
+}
