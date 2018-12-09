@@ -85,6 +85,23 @@ More about Vuido and the doc can be found [here](https://vuido.mimec.org/).
 
 **Vue/Electron (electron-vue)** Same as Vuido: developed in Vue, compiled in Electron, and built for the three main OS (Mac/Windows/Linux).
 
+To run a new desktop app, do the following:
+
+1. Go to `desktop_app/`
+2. Run:
+   ```shell
+   # Install vue-cli and scaffold boilerplate
+    npm install -g vue-cli
+    vue init simulatedgreg/electron-vue my-project
+
+    # Install dependencies and run your app
+    cd my-project
+    yarn # or npm install
+    yarn run dev # or npm run dev
+   ```
+   ![Example of electron-vue config](config_vue.png)
+   <small>Example of electron-vue config</small>
+
 With `npm run dev` or `yarn run dev` the development has hot-reloading, so you can see what you're modifying while coding. It also has the development tools just like in Chrome, so you can test out some css and html in real time. Take a look at the example below.
 
 ![Starting View of the desktop app](startingview_dev.png)
