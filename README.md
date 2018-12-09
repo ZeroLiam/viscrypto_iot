@@ -85,6 +85,10 @@ More about Vuido and the doc can be found [here](https://vuido.mimec.org/).
 
 **Vue/Electron (electron-vue)** Same as Vuido: developed in Vue, compiled in Electron, and built for the three main OS (Mac/Windows/Linux).
 
+With `npm run dev` or `yarn run dev` the development has hot-reloading, so you can see what you're modifying while coding. It also has the development tools just like in Chrome, so you can test out some css and html in real time. Take a look at the example below.
+
+![Starting View of the desktop app](startingview_dev.png)
+
 More about electron-vue and the doc can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/en/).
 
 #### <u>res</u>
