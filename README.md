@@ -16,7 +16,8 @@ Visual Cryptography with Raspberry Pi 2
       - [<u>viscrypto_core</u>](#uviscryptocoreu)
       - [<u>desktop_app</u>](#udesktopappu)
       - [<u>res</u>](#uresu)
-      - [LaunchUI (for Vuido)](#launchui-for-vuido)
+        - [LaunchUI (for Vuido)](#launchui-for-vuido)
+        - [electron-vue pdf gitbook](#electron-vue-pdf-gitbook)
 
 ---
 ### System
@@ -85,6 +86,8 @@ More about Vuido and the doc can be found [here](https://vuido.mimec.org/).
 
 **Vue/Electron (electron-vue)** Same as Vuido: developed in Vue, compiled in Electron, and built for the three main OS (Mac/Windows/Linux).
 
+More about electron-vue and the doc can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/en/).
+
 To run a new desktop app, do the following:
 
 1. Go to `desktop_app/`
@@ -106,10 +109,16 @@ With `npm run dev` or `yarn run dev` the development has hot-reloading, so you c
 
 ![Starting View of the desktop app](startingview_dev.png)
 
-More about electron-vue and the doc can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/en/).
+If you prefer a PDF version of the documentation, the file is under [res/electron-vue-en.pdf](res/electron-vue-en.pdf).
 
 #### <u>res</u>
 
-#### LaunchUI (for Vuido)
+Inside this folder you have all the resources for this project, like documentation, books, and compiled applications. Feel free to browse around.
+
+##### LaunchUI (for Vuido)
 
 Here is the GUI compiler for the desktop application. With this app, you can make release for MacOS, Windows, and Linux. I (ZeroLiam/Lis) use MacOS, so the file here for now is the GUI that works in Mac; however, if you use any other OS feel free to go to the [LaunchUI releases](https://github.com/mimecorg/launchui-packager-gui/releases) and download the one that suits you.
+
+##### electron-vue pdf gitbook
+
+The pdf version of the electron-vue documentation. If you're like me and sometimes have to develop offline, or if you like to have the documentation handy, here is the book without going to the [official docs](https://simulatedgreg.gitbooks.io/electron-vue/content/en/).
