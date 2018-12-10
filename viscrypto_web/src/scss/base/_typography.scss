@@ -1,0 +1,56 @@
+// Typography
+
+html > body {
+    font-size: em(16);
+    color: $dark;
+    font-family: $font-stack;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $light;
+    font-weight: $font-regular;
+}
+
+p {
+    font-size: rem(16);
+    line-height: rem(24);
+}
+
+h1, .heading-1 {
+    font-size: rem(36);
+    letter-spacing: -0.4px;
+}
+
+h2, .heading-2 {
+    font-size: rem(24);
+
+    @include breakpoint(mobile) {
+        font-size: rem(18);
+    }
+}
+
+h3, .heading-3 {
+    font-size: rem(18);
+
+    @include breakpoint(mobile) {
+        font-size: rem(16);
+    }
+}
+
+h4, .heading-4 {
+    font-size: rem(16);
+    font-weight: $font-semibold;
+
+    @include breakpoint(mobile) {
+        font-size: em(14);
+    }
+}
+
+h5, .heading-5 {
+    font-size: em(14);
+    font-weight: $font-semibold;
+}
+
+.header-title {
+    font-size: em(48);
+}
