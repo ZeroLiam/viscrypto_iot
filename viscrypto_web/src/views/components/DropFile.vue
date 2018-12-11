@@ -5,13 +5,16 @@
           later on the dropfile__add section -->
     <div class="dropfile__input">
       <label class="input-label">Files
-        <input type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/>
+        <input type="file" id="files" ref="files" multiple @change="handleFilesUpload()"/>
       </label>
     </div>
 
     <!-- List files -->
     <div class="dropfile__list">
-      <div v-for="(file, k) in files" :key="k" class="file-listing">{{ file.name }} </div>
+      <div v-for="file in files" :key="file.key" class="file-listing">
+        <img :src="urlimg[file.key].img" v-show="urlimg[file.key].show" />
+        {{ file.name }}
+      </div>
       <span class="remove-file" @click="removeFile(k)">Remove</span>
     </div>
     
@@ -36,6 +39,7 @@
      */
     data(){
       return {
+        urlimg: [],//url from the files to preview
         files: []//all files we're uploading
       }
     },
@@ -78,11 +82,27 @@
       //Handles the uploading of files
       handleFilesUpload(){
         let uploadedFiles = this.$refs.files.files;
-        
+
         //Adds the uploaded file to the files array
         for( var i = 0; i < uploadedFiles.length; i++ ){
-          this.files.push( uploadedFiles[i] );
+          let file = uploadedFiles[i];
+          this.files.push(file);
+          let reader = new FileReader();
+
+          reader.addEventListener("load", function(){
+              this.urlimg.push({
+                show: true,
+                img: reader.result
+              }.bind(this), false);
+          });
+
+          if(file){
+            if(/\.(jpe?g|png|gif)$/i.test(file.name)){
+              reader.readAsDataURL(file);
+            }
+          }
         }
+        console.log("urlimg: ", this.urlimg);
       },
       //Removes a select file the user has uploaded
       removeFile( key ){
@@ -119,6 +139,10 @@
         cursor: pointer;
         color: $error;
         margin: 0 0 rem(15) 0;
+      }
+      .img-preview {
+        width: rem(190);
+        height: auto;
       }
     }
     &__add{
