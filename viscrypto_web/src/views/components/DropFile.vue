@@ -5,14 +5,14 @@
           later on the dropfile__add section -->
     <div class="dropfile__input">
       <label class="input-label">Files
-        <input type="file" id="files" ref="files" multiple @change="handleFilesUpload()"/>
+        <input type="file" id="files" ref="files" multiple accept="image/*" @change="handleFilesUpload()"/>
       </label>
     </div>
 
     <!-- List files -->
     <div class="dropfile__list">
-      <div v-for="file in files" :key="file.key" class="file-listing">
-        <img :src="urlimg[file.key].img" v-show="urlimg[file.key].show" />
+      <div v-for="(file, key) in files" :key="key" class="file-listing">
+        <img class="preview" v-bind:ref="'image'+parseInt(key)"/>
         {{ file.name }}
       </div>
       <span class="remove-file" @click="removeFile(k)">Remove</span>
@@ -39,7 +39,6 @@
      */
     data(){
       return {
-        urlimg: [],//url from the files to preview
         files: []//all files we're uploading
       }
     },
@@ -65,7 +64,7 @@
         }
         
         //Make the request to the POST /select-files URL
-        axios.post( '/select-files',
+        this.$axios.post( '/select-files',
           formData,
           {
             headers: {
@@ -85,28 +84,33 @@
 
         //Adds the uploaded file to the files array
         for( var i = 0; i < uploadedFiles.length; i++ ){
-          let file = uploadedFiles[i];
-          this.files.push(file);
-          let reader = new FileReader();
-
-          reader.addEventListener("load", function(){
-              this.urlimg.push({
-                show: true,
-                img: reader.result
-              }.bind(this), false);
-          });
-
-          if(file){
-            if(/\.(jpe?g|png|gif)$/i.test(file.name)){
-              reader.readAsDataURL(file);
-            }
+          this.files.push(uploadedFiles[i]);
+              console.log("this.$refs: ", this.$refs);
+        }
+        //Get image previews for the files
+        this.getImagePreviews();
+      },
+      // Gets the preview image for the file
+      getImagePreviews(){
+        //Iterate over all of the files and generate an image preview for each one.
+        for(var i = 0; i < this.files.length; i++ ){
+          //Ensure the file is an image file
+          if ( /\.(jpe?g|png|gif)$/i.test( this.files[i].name ) ) {
+            //Create a new FileReader object
+            let reader = new FileReader();
+            //Add an event listener for when the file has been loaded to update the src on the file preview.
+            reader.addEventListener("load", function(){
+              this.$refs['image'+i][0].src = reader.result;
+            }.bind(this), false);
+            
+            //Read the data for the file in through the reader. When it has been loaded, we listen to the event propagated and set the image src to what was loaded from the reader.
+            reader.readAsDataURL( this.files[i] );
           }
         }
-        console.log("urlimg: ", this.urlimg);
       },
       //Removes a select file the user has uploaded
-      removeFile( key ){
-        this.files.splice( key, 1 );
+      removeFile(key){
+        this.files.splice(key, 1);
       }
     }
   }
