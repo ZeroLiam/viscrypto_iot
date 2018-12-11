@@ -11,11 +11,11 @@
 
     <!-- List files -->
     <div class="dropfile__list">
-      <div v-for="(file, key) in files" :key="key" class="file-listing">
-        <img class="img-preview" v-bind:ref="`image${parseInt(key)}`"/>
+      <div v-for="(file, k) in files" :key="k" class="file-listing">
+        <img class="img-preview" v-bind:ref="`image${parseInt(k)}`"/>
         <span class="img-desc">{{ file.name }}</span>
+        <span class="remove-file" @click="removeFile(k)" v-if="files.length > 0">Remove</span>
       </div>
-      <span class="remove-file" @click="removeFile(k)">Remove</span>
     </div>
     
     <!-- Add files -->
@@ -26,6 +26,11 @@
     <!-- Submit files -->
     <div class="dropfile__submit">
       <button v-on:click="submitFiles()" class="button submit_btn">Submit</button>
+    </div>
+
+    <!-- Animation box -->
+    <div class="dropfile__animation">
+      <span class="anim-phone"><img src="../../assets/phone_placeholder.png"</span>
     </div>
   </div>
 </template>
