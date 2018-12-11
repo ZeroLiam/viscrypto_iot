@@ -12,8 +12,8 @@
     <!-- List files -->
     <div class="dropfile__list">
       <div v-for="(file, key) in files" :key="key" class="file-listing">
-        <img class="preview" v-bind:ref="'image'+parseInt(key)"/>
-        {{ file.name }}
+        <img class="img-preview" v-bind:ref="`image${parseInt(key)}`"/>
+        <span class="img-desc">{{ file.name }}</span>
       </div>
       <span class="remove-file" @click="removeFile(k)">Remove</span>
     </div>
@@ -85,7 +85,6 @@
         //Adds the uploaded file to the files array
         for( var i = 0; i < uploadedFiles.length; i++ ){
           this.files.push(uploadedFiles[i]);
-              console.log("this.$refs: ", this.$refs);
         }
         //Get image previews for the files
         this.getImagePreviews();
@@ -100,7 +99,10 @@
             let reader = new FileReader();
             //Add an event listener for when the file has been loaded to update the src on the file preview.
             reader.addEventListener("load", function(){
-              this.$refs['image'+i][0].src = reader.result;
+              //get the index and the refs name of the image
+              let imgIndex = i - 1;
+              let theImg = `image${parseInt(imgIndex)}`;
+              this.$refs[theImg][0].src = reader.result;
             }.bind(this), false);
             
             //Read the data for the file in through the reader. When it has been loaded, we listen to the event propagated and set the image src to what was loaded from the reader.
@@ -138,15 +140,27 @@
       display: flex;
       flex-flow: column nowrap;
       justify-content: center;
+      align-content: center;
 
       .remove-file{
         cursor: pointer;
         color: $error;
         margin: 0 0 rem(15) 0;
       }
-      .img-preview {
-        width: rem(190);
-        height: auto;
+      .file-listing {
+        display: flex;
+        flex-flow: column nowrap;
+        .img-preview {
+          flex: 1 100%;
+          margin: 0 auto;
+          max-width: rem(300);
+          height: auto;
+          padding: rem(4);
+        }
+        .img-desc{
+          font-style: italic;
+          margin: 0 auto rem(8) auto;
+        }
       }
     }
     &__add{
