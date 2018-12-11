@@ -30,7 +30,9 @@
 
     <!-- Animation box -->
     <div class="dropfile__animation">
-      <span class="anim-phone"><img src="../../assets/phone_placeholder.png"</span>
+      <span class="anim-img anim-phone"> <img src="../../assets/phone_placeholder.png"></span>
+      <span class="anim-img anim-arrow" v-if="this.isUploading"> </span>
+      <span class="anim-img anim-raspberry"> <img src="../../assets/raspi_placeholder.png"></span>
     </div>
   </div>
 </template>
@@ -44,6 +46,7 @@
      */
     data(){
       return {
+        isUploading: false,//we need to know if it's uploading to show an animation
         files: []//all files we're uploading
       }
     },
@@ -59,6 +62,8 @@
       },
       //Submit files to the server
       submitFiles(){
+        //Activate the animation of uploading
+        this.isUploading = true;
         //Initialize form data
         let formData = new FormData();
 
@@ -77,9 +82,11 @@
             }
           }
         ).then(function(){
+          this.isUploading = false;
           console.log('Success! Files were uploaded');
         })
         .catch(function(){
+          this.isUploading = false;
           console.log('Sorry, but there was an error uploading the files');
         });
       },
@@ -125,6 +132,16 @@
 
 <style lang="scss">
   @import '@/scss/main.scss';
+  @keyframes transferarrow {
+    from{
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    to{
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
 
   .dropfile {
     display: flex;
@@ -171,6 +188,41 @@
     &__add{
       .add_btn {
         margin: 0 0 rem(25) 0;
+      }
+    }
+    &__animation {
+      display: flex;
+      flex-flow: row nowrap;
+      width: auto;
+      margin: 0 auto;
+
+      .anim-img{
+        max-height: rem(60);
+      }
+      .anim-arrow {
+        width: rem(150);
+        margin: auto;
+        padding: rem(10) 0;
+        
+        &:after{
+          content: '';
+          position: relative;
+          right: calc(60px + 14px);
+          top: 10px;
+          align-self: center;
+          border: solid $dark;
+          border-width: 0 rem(4) rem(4) 0;
+          border-radius: rem(4);
+          display: inline-block;
+          padding: rem(5) 0 0 0;
+          height: 10px;
+          width: 14px;
+          transform: rotate(315deg) translateY(-3px);
+        }
+
+        animation-duration: 1.2s;
+        animation-name: transferarrow;
+        animation-iteration-count: infinite;
       }
     }
   }
