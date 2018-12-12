@@ -29,16 +29,24 @@
     </div>
 
     <!-- Animation box -->
-    <div class="dropfile__animation">
-      <span class="anim-img anim-phone"> <img src="../../assets/phone_placeholder.png"></span>
-      <span class="anim-img anim-arrow" v-if="this.isUploading"> </span>
-      <span class="anim-img anim-raspberry"> <img src="../../assets/raspi_placeholder.png"></span>
-    </div>
+    <DropFileAnimation :isUploading="this.isUploading" :hasSucceeded="this.hasSucceeded" :hasFailed="this.hasFailed" />
+    
   </div>
 </template>
 
 <script>
+  // @ is an alias to /src
+  import DropFileAnimation from './DropFileAnimation.vue';
+
   export default {
+    name: 'DropFile',
+    /**
+        Hook:       components
+        Purpose:    Imports the components from other files
+     */
+    components: {
+      DropFileAnimation
+    },
     /**
         Hook:       data()
         Purpose:    Holds the variables for this component
@@ -47,6 +55,9 @@
     data(){
       return {
         isUploading: false,//we need to know if it's uploading to show an animation
+        timeoutUploading: false,//have we got a timeout while uploading? has been taking too long to upload?
+        hasSucceeded: false,//did the files uploaded successfully?
+        hasFailed: false,//did the files failed to upload?
         files: []//all files we're uploading
       }
     },
@@ -81,12 +92,41 @@
                 'Content-Type': 'multipart/form-data'
             }
           }
-        ).then(function(){
+        )
+        //TODO: the timeout function
+        // .then(function(){
+        //   setTimeout(function(){
+        //     //if after 5secs is still uploading but it hasn't suceeded nor failed, then cancel this and trigger the timeout animation
+        //     if(this.isUploading && (!this.hasSucceeded && !this.hasFailed)){
+        //       this.timeoutUploading = true;
+        //       this.isUploading = false;
+        //       this.hasSucceeded = false;
+        //       this.hasFailed = false;
+        //     }
+        //   }, 5000);
+        // })
+        //
+        /*
+        ======================================================
+         HEY! YOU! LOOK AT THIS!
+          Listen pal, this is VERY IMPORTANT:
+          If you want to keep the outer context (e.g., this), 
+          you need to USE THE ARROW FUNCTIONS! (e.g., ()=>{} )
+          Don't call the promises like in the old days because 
+          you won't communicate with the variables you're 
+           supposed to change. This has been a useful PSA.
+        ======================================================
+        */
+        .then(()=>{
           this.isUploading = false;
+          this.hasSucceeded = true;
+          this.hasFailed = false;
           console.log('Success! Files were uploaded');
         })
-        .catch(function(){
+        .catch(()=>{
           this.isUploading = false;
+          this.hasSucceeded = false;
+          this.hasFailed = true;
           console.log('Sorry, but there was an error uploading the files');
         });
       },
@@ -132,17 +172,7 @@
 
 <style lang="scss">
   @import '@/scss/main.scss';
-  @keyframes transferarrow {
-    from{
-      opacity: 1;
-      transform: translateX(0%);
-    }
-    to{
-      opacity: 0;
-      transform: translateX(100%);
-    }
-  }
-
+  
   .dropfile {
     display: flex;
     flex-flow: column nowrap;
@@ -188,41 +218,6 @@
     &__add{
       .add_btn {
         margin: 0 0 rem(25) 0;
-      }
-    }
-    &__animation {
-      display: flex;
-      flex-flow: row nowrap;
-      width: auto;
-      margin: 0 auto;
-
-      .anim-img{
-        max-height: rem(60);
-      }
-      .anim-arrow {
-        width: rem(150);
-        margin: auto;
-        padding: rem(10) 0;
-        
-        &:after{
-          content: '';
-          position: relative;
-          right: calc(60px + 14px);
-          top: 10px;
-          align-self: center;
-          border: solid $dark;
-          border-width: 0 rem(4) rem(4) 0;
-          border-radius: rem(4);
-          display: inline-block;
-          padding: rem(5) 0 0 0;
-          height: 10px;
-          width: 14px;
-          transform: rotate(315deg) translateY(-3px);
-        }
-
-        animation-duration: 1.2s;
-        animation-name: transferarrow;
-        animation-iteration-count: infinite;
       }
     }
   }

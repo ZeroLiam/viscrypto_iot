@@ -14,6 +14,7 @@
 import DropFile from './components/DropFile.vue';
 
 export default {
+  name: 'Home',
   components: {
     DropFile
   },
