@@ -1,6 +1,6 @@
 # viscrypto_desktop
 
-> A visual cryptography app made en vue electron
+> A visual cryptography desktop app made in electron-vue framework
 
 #### Build Setup
 

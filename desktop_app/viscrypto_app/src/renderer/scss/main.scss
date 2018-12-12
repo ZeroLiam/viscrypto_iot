@@ -1,0 +1,11 @@
+@import './base/_base';
+
+html{
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    margin: 0;
+    background: $light;//fallback in case the gradient doesnt work
+    background: linear-gradient(to bottom, #FFFFFF, #ECE9E6);
+}

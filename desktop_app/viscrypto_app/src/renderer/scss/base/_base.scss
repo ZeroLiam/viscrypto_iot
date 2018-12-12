@@ -1,0 +1,95 @@
+@import '_config.scss';
+@import '_typography.scss';
+@import '_normalize.scss';
+
+div,
+article,
+section,
+header,
+footer,
+nav,
+li {
+  position: relative;
+}
+
+input,
+textarea,
+select {
+  font-family: $font-stack;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 100%;
+  font-family: $font-stack;
+  font-weight: $font-regular;
+}
+
+
+::-webkit-input-placeholder {
+  color: #9BA1A7;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #9BA1A7;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #9BA1A7;
+}
+
+:-ms-input-placeholder {
+  color: #9BA1A7;
+}
+
+.hidden {
+  opacity: 0;
+  display: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+.page-wrap {
+  width: percent(400, 480);
+  margin: 0 auto;
+  max-width: 472px;
+  position: relative;
+
+  @include breakpoint(desktop) {
+    width: percent(1032, 1440);
+    max-width: 1440px;
+  }
+
+  &::before,
+  &::after {
+    content: " ";
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+.link {
+  color: $dark;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.nbsp {
+  white-space: nowrap;
+}
