@@ -14,7 +14,7 @@
       <div v-for="(file, k) in files" :key="k" class="file-listing">
         <img class="img-preview" v-bind:ref="`image${parseInt(k)}`"/>
         <span class="img-desc">{{ file.name }}</span>
-        <span class="remove-file" @click="removeFile(k)" v-if="files.length > 0">Remove</span>
+        <span class="remove-file" :class="{'disabled' : isUploading }" @click="removeFile(k)" v-if="files.length > 0">Remove</span>
       </div>
     </div>
     
@@ -57,7 +57,7 @@
         isUploading: false,//we need to know if it's uploading to show an animation
         timeoutUploading: false,//have we got a timeout while uploading? has been taking too long to upload?
         hasSucceeded: false,//did the files uploaded successfully?
-        hasFailed: false,//did the files failed to upload?
+        hasFailed: true,//did the files failed to upload?
         files: []//all files we're uploading
       }
     },
@@ -201,6 +201,12 @@
         cursor: pointer;
         color: $error;
         margin: 0 0 rem(15) 0;
+
+        &.disabled {
+          color: $dark-light;
+          cursor: none;
+          pointer-events: none;
+        }
       }
       .file-listing {
         display: flex;

@@ -34,7 +34,7 @@ export default {
     
   &__logo {
     max-width: rem(190);
-    margin: 0 auto;
+    margin: 0 auto rem(10) auto;
 
     @include breakpoint(tablet) {
       max-width: rem(250);
