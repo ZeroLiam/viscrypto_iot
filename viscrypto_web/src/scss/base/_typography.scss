@@ -7,8 +7,9 @@ html > body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: $light;
+    color: $primary;
     font-weight: $font-regular;
+    margin: 0 0 rem(12) 0;
 }
 
 p {

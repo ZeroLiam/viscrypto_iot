@@ -165,6 +165,10 @@
       //Removes a select file the user has uploaded
       removeFile(key){
         this.files.splice(key, 1);
+        this.isUploading = false;
+        this.hasSucceeded = false;
+        this.hasFailed = false;
+        this.timeoutUploading = false;
       }
     }
   }
@@ -177,7 +181,6 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    margin: 0 auto;
 
     input[type="file"]{
       visibility: hidden;
@@ -217,14 +220,14 @@
     }
     &__add{
       .add_btn {
-        margin: 0 0 rem(25) 0;
+        // margin: 0 0 rem(25) 0;
       }
     }
   }
 
   .button {
     min-width: rem(200);
-    margin: 0 auto rem(13) auto;
+    margin: 0 auto rem(25) auto;
     padding: rem(16) rem(2)rem(15) rem(2);
     text-align: center;
     font-size: rem(12);
