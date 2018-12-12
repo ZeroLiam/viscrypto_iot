@@ -1,14 +1,14 @@
 <template>
     <div class="picturebox">
         <div class="l-picturebox-container">
-            <div class="picturebox__image static">
-                <!-- <img src="~@/assets/testimg/github120_share2.png" /> -->
-                <img src="~@/assets/testimg/github120_share2.png" />
-            </div>
-            <div class="picturebox__image coded dragme">
-                <img src="~@/assets/testimg/github120_share1.png" />
-                
-            </div>
+            <VueDragResize :isActive="false" :isResizable="false" 
+            :isDraggable="true"  :aspectRatio="true" class="picturebox__image">
+                <img class="imga" src="~@/assets/testimg/github-share-1.png" />
+            </VueDragResize>
+            <VueDragResize :isActive="true" :isResizable="false"  
+            :isDraggable="true"   :aspectRatio="true" class="picturebox__image">
+                <img class="imgb" src="~@/assets/testimg/github-share-2.png" />
+            </VueDragResize>
         </div>
     </div>
 </template>
@@ -59,14 +59,33 @@ export default {
       height: rem(350);
       display: flex;
       flex-flow: row wrap;
+      overflow: hidden;
 
       &__image{
-          position: absolute;
-          top: 0;
-          left: 0;
-          margin: rem(8);
-          width: rem(350);
-          height: auto;
+        margin: rem(8);
+        width: rem(365);
+        height: auto;
+
+        .imga{
+            max-height: rem(325);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .imgb{
+            max-height: rem(325);
+            position: absolute;
+            top: 0;
+            left: 250%;
+        }
+
+        &.active{
+            &::before {
+                display: none;
+            }
+        }
+
       }
   }
 </style>
