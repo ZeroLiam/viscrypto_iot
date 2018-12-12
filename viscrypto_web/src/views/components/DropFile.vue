@@ -57,7 +57,7 @@
         isUploading: false,//we need to know if it's uploading to show an animation
         timeoutUploading: false,//have we got a timeout while uploading? has been taking too long to upload?
         hasSucceeded: false,//did the files uploaded successfully?
-        hasFailed: true,//did the files failed to upload?
+        hasFailed: false,//did the files failed to upload?
         files: []//all files we're uploading
       }
     },
