@@ -27,10 +27,10 @@
         <div class="l-picturebox-container">
             <div v-for="(file, k) in files" :key="k" >
                 <VueDragResize :isActive="false" :isResizable="false"  :isDraggable="true" @dragstop="onDragstop" :aspectRatio="true" class="picturebox__image">
-                    <img class="img-preview imga" :src="loadedImages['image_a']"/>
+                    <img class="img-preview imga" :src="'static/testimgs/'+loadedImages['image_a']"/>
                 </VueDragResize>
                 <VueDragResize :isActive="false" :isResizable="false"  :isDraggable="true" @dragstop="onDragstop" :aspectRatio="true" class="picturebox__image">
-                    <img class="img-preview imgb" :src="loadedImages['image_b']"/>
+                    <img class="img-preview imgb" :src="'static/testimgs/'+loadedImages['image_b']"/>
                 </VueDragResize>
             </div>
         </div>
@@ -64,6 +64,8 @@ export default {
         }
     },
     mounted(){
+        console.log("AXIOS: ", this.$http);
+        console.log("hello??");
     },
     methods: {
         
@@ -84,14 +86,20 @@ export default {
       },
         generateEncodedImages(){
             //visCrypto.init('./src/renderer/assets/testimg/github120.png', './src/renderer/assets/testimg/github120-share-1.png', './src/renderer/assets/testimg/github120-share-2.png');
+
+            //get images
+            // this.$http.get('https://img.icons8.com/metro/1600/github.png').then(response => {
+            //     console.log(response.data);
+            // }).catch(err => console.log(err));
+
             console.log(this.files);
             var filepathName = this.files[0].path.replace( /\.(jpe?g|png|gif)$/i, '');
             console.log(filepathName);
-            this.loadedImages['image_a'] = './testimg/share-1.png';
-            this.loadedImages['image_b'] = './testimg/share-2.png';
+            this.loadedImages['image_a'] = 'share-1.png';
+            this.loadedImages['image_b'] = 'share-2.png';
             
             visCrypto.init(filepathName + '.png', this.loadedImages['image_a'], this.loadedImages['image_b']);
-            this.title = `${filepathName} + '.png', ${this.loadedImages['image_a']}, ${this.loadedImages['image_b']}`
+            this.title = `${filepathName} + '.png', ${this.loadedImages['image_a']}, ${this.loadedImages['image_b']}`;
         },
         onDragstop(){
             var match_images = {

@@ -85,11 +85,12 @@
         }
         
         //Make the request to the POST /select-files URL
-        this.$axios.post( '/select-files',
+        this.$axios.post( 'http://192.168.0.103:5000/post_files',
           formData,
           {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin' : '*'
             }
           }
         )

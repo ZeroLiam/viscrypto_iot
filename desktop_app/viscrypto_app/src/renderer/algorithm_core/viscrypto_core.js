@@ -3,6 +3,7 @@
 // These are the two most important modules for the 
 // visualization algorithm
 const fs = require('fs');//file stream, to read and write files
+const path = require('path');
 const PNG = require('pngjs').PNG;//pngjs, to manipulate png files
 
 //PNG_OPTIONS
@@ -121,9 +122,9 @@ const viscryptoCore = {
                 return;
             }
 
-        const secretStream = fs.createReadStream(this.originalImage);
-        const shareOneStream = fs.createWriteStream(this.share1Image);
-        const shareTwoStream = fs.createWriteStream(this.share2Image);
+        const secretStream = fs.createReadStream(path.join(__static, this.originalImage));
+        const shareOneStream = fs.createWriteStream(path.join(__static, this.share1Image));
+        const shareTwoStream = fs.createWriteStream(path.join(__static, this.share2Image));
 
         secretStream.pipe(new PNG({
             filterType: PNG_OPTIONS.FILTER,
@@ -165,10 +166,10 @@ const viscryptoCore = {
         this.originalImage = newOriginalImage;
     },
     setShare1Image: function(newShare1Image){
-        this.share1Image = newShare1Image;
+        this.share1Image = 'src/renderer/assets/testimgs/'  + newShare1Image;
     },
     setShare2Image: function(newShare2Image){
-        this.share2Image = newShare2Image;
+        this.share2Image = 'src/renderer/assets/testimgs/' + newShare2Image;
     }
 }
 
