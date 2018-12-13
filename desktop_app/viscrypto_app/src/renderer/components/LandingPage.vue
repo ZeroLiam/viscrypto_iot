@@ -3,7 +3,7 @@
     <img class="landingpage__logo" src="~@/assets/viscryptologo.png" alt="electron-vue">
     <main>
       <div class="left-side">
-        <h2>Let's decode this message!</h2>
+        <h2>Let's decode this message</h2>
         <PictureBox codedimg="~@/assets/viscryptologo.png" staticimg="../assets/testimg/github120_share2.png" />
         <!-- <system-information></system-information> -->
       </div>
