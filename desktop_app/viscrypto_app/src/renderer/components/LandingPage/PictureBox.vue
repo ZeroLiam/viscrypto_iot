@@ -6,7 +6,7 @@
                 <img class="imga" src="~@/assets/testimg/github-share-1.png" />
             </VueDragResize>
             <VueDragResize :isActive="true" :isResizable="false"  
-            :isDraggable="true"   :aspectRatio="true" class="picturebox__image">
+            :isDraggable="true"  @dragstop="onDragstop" @dragging="onDragging" :aspectRatio="true" class="picturebox__image">
                 <img class="imgb" src="~@/assets/testimg/github-share-2.png" />
             </VueDragResize>
         </div>
@@ -27,8 +27,8 @@ export default {
     },
     data() {
         return {
-            image_a: '',
-            image_b: '',
+            image_a: document.getElementsByClassName('imga')[0],
+            image_b: document.getElementsByClassName('imgb')[0],
             width: 0,
             height: 0,
             top: 0,
@@ -40,11 +40,12 @@ export default {
     },
     methods: {
         resize(newRect) {
+            console.log("newRect: ", newRect);
             this.width = newRect.width;
             this.height = newRect.height;
             this.top = newRect.top;
             this.left = newRect.left;
-        }
+        },
     }
 }
 </script>
@@ -65,6 +66,10 @@ export default {
         margin: rem(8);
         width: rem(365);
         height: auto;
+
+        .foundmatch {
+            border: 2px solid $success;
+        }
 
         .imga{
             max-height: rem(325);
