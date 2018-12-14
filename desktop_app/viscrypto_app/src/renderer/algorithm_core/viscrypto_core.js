@@ -122,9 +122,14 @@ const viscryptoCore = {
                 return;
             }
 
-        const secretStream = fs.createReadStream(path.join(__static, this.originalImage));
-        const shareOneStream = fs.createWriteStream(path.join(__static, this.share1Image));
-        const shareTwoStream = fs.createWriteStream(path.join(__static, this.share2Image));
+            console.log("eta mardita vaina, donde e que tan la foto conio?!");
+            console.log("secretStream es: ", this.originalImage);
+            console.log("shareOneStream es: ", this.share1Image);
+            console.log("shareTwoStream es: ", this.share2Image);
+
+        const secretStream = fs.createReadStream(this.originalImage);
+        const shareOneStream = fs.createWriteStream(this.share1Image);
+        const shareTwoStream = fs.createWriteStream(this.share2Image);
 
         secretStream.pipe(new PNG({
             filterType: PNG_OPTIONS.FILTER,
@@ -166,10 +171,10 @@ const viscryptoCore = {
         this.originalImage = newOriginalImage;
     },
     setShare1Image: function(newShare1Image){
-        this.share1Image = 'src/renderer/assets/testimgs/'  + newShare1Image;
+        this.share1Image = newShare1Image;
     },
     setShare2Image: function(newShare2Image){
-        this.share2Image = 'src/renderer/assets/testimgs/' + newShare2Image;
+        this.share2Image = newShare2Image;
     }
 }
 
