@@ -2,35 +2,17 @@
     <div class="picturebox">
         <!-- Title and load button -->
         <div class="picturebox__title" :class="{'found': title === 'MESSAGE FOUND!'}">{{title}}</div>
-        <!--  Actual input file button, hidden so we can stylize it
-          later on the dropfile__add section -->
-        <div class="picturebox__input">
-            <label class="input-label">
-                <input type="file" id="files" ref="files" accept="image/*" @change="handleFilesUpload()"/>
-            </label>
-        </div>
-        
+        <!--  Load image original image and generate the two encoded images -->
         <button class="button getEncodedImages_btn" @click="addFiles()">Get Encoded Images</button>
 
-        <!-- Encoded pictures container -->
-        <!-- <div class="l-picturebox-container"> -->
-            <!-- <VueDragResize :isActive="false" :isResizable="false"  :isDraggable="true" @dragstop="onDragstop" :aspectRatio="true" class="picturebox__image"> -->
-                <!-- <img class="imga" src="~@/assets/testimg/github120-share-1.png" /> -->
-                <!-- <img class="imga" v-bind:ref="`image_a${parseInt(k)}`"/> -->
-            <!-- </VueDragResize> -->
-            <!-- <VueDragResize :isActive="true" :isResizable="false"   :isDraggable="true" @dragstop="onDragstop" :aspectRatio="true" class="picturebox__image"> -->
-                <!-- <img class="imgb" src="~@/assets/testimg/github120-share-2.png" /> -->
-                <!-- <img class="imgb" v-bind:ref="`image_b${parseInt(k)}`"/> -->
-            <!-- </VueDragResize> -->
-        <!-- </div> -->
-
+        <!-- Encoded picture container -->
         <div class="l-picturebox-container">
             <div v-for="(file, k) in files" :key="k" >
                 <VueDragResize :isActive="false" :isResizable="false"  :isDraggable="true" @dragstop="onDragstop" :aspectRatio="true" class="picturebox__image">
-                    <img class="img-preview imga" :src="'static/testimgs/'+loadedImages['image_a']"/>
+                    <img class="img-preview imga" :src="loadedImages['image_a']"/>
                 </VueDragResize>
                 <VueDragResize :isActive="false" :isResizable="false"  :isDraggable="true" @dragstop="onDragstop" :aspectRatio="true" class="picturebox__image">
-                    <img class="img-preview imgb" :src="'static/testimgs/'+loadedImages['image_b']"/>
+                    <img class="img-preview imgb" :src="loadedImages['image_b']"/>
                 </VueDragResize>
             </div>
         </div>
@@ -44,6 +26,7 @@
 import VueDragResize from 'vue-drag-resize'
 import visCrypto from './../../algorithm_core/viscrypto_core'
 import fs from 'fs'
+import PNG from 'pngjs'
 import { remote } from 'electron'
 
 export default {
@@ -70,7 +53,6 @@ export default {
         
     },
     methods: {
-        
       //Add files from the input
       addFiles(){
         // this.$refs.files.click();
@@ -86,33 +68,11 @@ export default {
             this.generateEncodedImages();
         })
       },
-      //Handles the uploading of files
-      handleFilesUpload(){
-        let uploadedFiles = this.$refs.files.files;
-
-        //Adds the uploaded file to the files array
-        for( var i = 0; i < uploadedFiles.length; i++ ){
-          this.files.push(uploadedFiles[i]);
-        }
-        //Get image previews for the files
-        this.generateEncodedImages();
-      },
         generateEncodedImages(){
-            //visCrypto.init('./src/renderer/assets/testimg/github120.png', './src/renderer/assets/testimg/github120-share-1.png', './src/renderer/assets/testimg/github120-share-2.png');
-
-            //get images
-            // this.$http.get('https://img.icons8.com/metro/1600/github.png').then(response => {
-            //     console.log(response.data);
-            // }).catch(err => console.log(err));
-
-            console.log(this.files);
-            // var filepathName = this.files[0].path.replace( /\.(jpe?g|png|gif)$/i, '');
-            // console.log(filepathName);
             this.loadedImages['image_a'] = 'share-1.png';
             this.loadedImages['image_b'] = 'share-2.png';
             
             visCrypto.init(this.files[0], this.currentDirectory + this.loadedImages['image_a'], this.currentDirectory + this.loadedImages['image_b']);
-            this.title = `${this.files[0]}, ${this.loadedImages['image_a']}, ${this.loadedImages['image_b']}`;
         },
         onDragstop(){
             var match_images = {
